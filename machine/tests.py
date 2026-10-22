@@ -81,10 +81,10 @@ class MachineTests(SimpleTestCase):
         self.assertEqual(views.coins, 1)
 
     def test_get_one_item(self):
-        response = self.client.get("/inventory/0") 
-        self.assertEqual(response.status_code, 200) 
-        self.assertEqual(response.json(), 5)  
-
+        response = self.client.get("/inventory/0")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), 5)
+        
     def test_invalid_id(self):
         self.insert_coins(1)
         response = self.client.put("/inventory/7")
