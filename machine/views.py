@@ -10,10 +10,36 @@ def inventory_list(request):
     return JsonResponse(inventory, safe=False)
 
 
+@csrf_exempt
 def inventory_item(request, item_id):
+    global coins
     if item_id >= len(inventory):
         return HttpResponse(status=404)
-    return JsonResponse(inventory[item_id], safe=False)
+
+    if request.method == "GET":
+        return JsonResponse(inventory[item_id], safe=False)
+
+    elif request.method == "PUT":
+        if inventory[item_id] == 0:
+            response = HttpResponse(status=404)
+            response["X-Coins"] = str(coins)
+            return response
+
+        if coins < 2:
+            response = HttpResponse(status=403)
+            response["X-Coins"] = str(coins)
+            return response
+
+        change = coins - 2
+        coins = 0
+        inventory[item_id] -= 1
+        response = JsonResponse({"quantity": 1})
+        response["X-Coins"] = str(change)
+        response["X-Inventory-Remaining"] = str(inventory[item_id])
+        return response
+
+    return HttpResponse(status=405)
+
 
 
 @csrf_exempt
