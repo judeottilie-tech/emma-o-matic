@@ -58,9 +58,6 @@ curl -i -X DELETE localhost:8000/
 `-i` shows the response headers (X-Coins, X-Inventory-Remaining).
 
 ## Notes on design choices
-- Ids are 1-based, I feel it works better for real world application. In Python, lists will accept a negative index. I made sure to test for item_id < 1 to check for this potential bug.
-- Stock is checked before coins.
-- Resets on restart, state is in memory. If server is restarted, memory restarts.
-- An invalid id (like /inventory/7) returns 404 with X-Coins, same as out of stock.
-- Each PUT / adds one coin. The body isn't checked, since only quarters fit in the machine.
-- URLs have no trailing slash (/inventory, not /inventory/).
+Id's are 1-based, I feel it works better for real world application. In Python, lists will accept a negative index. I made sure to test for item_id < 1 to check for this potential bug.
+Stock is checked before coins.
+Resets on restart, state is in memory. If server is restarted, memory restarts.
