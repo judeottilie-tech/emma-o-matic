@@ -40,7 +40,7 @@ class MachineTests(SimpleTestCase):
 
     def test_purchase_success(self):
         self.insert_coins(2)
-        response = self.client.put("/inventory/0")
+        response = self.client.put("/inventory/1")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"quantity": 1})
         self.assertEqual(response["X-Coins"], "0")
@@ -49,7 +49,7 @@ class MachineTests(SimpleTestCase):
 
     def test_purchase_returns_change(self):
         self.insert_coins(3)
-        response = self.client.put("/inventory/1")
+        response = self.client.put("/inventory/2")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"quantity": 1})
         self.assertEqual(response["X-Coins"], "1")
@@ -58,7 +58,7 @@ class MachineTests(SimpleTestCase):
 
     def test_purchase_not_enough_coins(self):
         self.insert_coins(1)
-        response = self.client.put("/inventory/0")
+        response = self.client.put("/inventory/1")
         self.assertEqual(response.status_code, 403)
         self.assertEqual(response["X-Coins"], "1")
         self.assertEqual(views.coins, 1)
@@ -67,7 +67,7 @@ class MachineTests(SimpleTestCase):
     def test_purchase_out_of_stock(self):
         views.inventory = [5, 0, 5]
         self.insert_coins(2)
-        response = self.client.put("/inventory/1")
+        response = self.client.put("/inventory/2")
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response["X-Coins"], "2")
         self.assertEqual(views.coins, 2)
@@ -75,13 +75,13 @@ class MachineTests(SimpleTestCase):
     def test_out_of_stock_beats_not_enough_coins(self):
         views.inventory = [5, 0, 5]
         self.insert_coins(1)
-        response = self.client.put("/inventory/1")
+        response = self.client.put("/inventory/2")
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response["X-Coins"], "1")
         self.assertEqual(views.coins, 1)
 
     def test_get_one_item(self):
-        response = self.client.get("/inventory/0")
+        response = self.client.get("/inventory/1")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), 5)
 
@@ -91,6 +91,10 @@ class MachineTests(SimpleTestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response["X-Coins"], "1")
 
+    def test_id_zero_is_invalid(self):
+        response = self.client.get("/inventory/0")
+        self.assertEqual(response.status_code, 404)
+
     def test_wrong_method_on_coins(self):
         client = Client(enforce_csrf_checks=True)
         response = client.post("/")
@@ -99,16 +103,16 @@ class MachineTests(SimpleTestCase):
     def test_buy_until_sold_out(self):
         for _ in range(5):
             self.insert_coins(2)
-            self.client.put("/inventory/0")
+            self.client.put("/inventory/1")
         self.insert_coins(2)
-        response = self.client.put("/inventory/0")
+        response = self.client.put("/inventory/1")
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response["X-Coins"], "2")
         self.assertEqual(views.inventory, [0, 5, 5])
 
     def test_coins_reset_after_purchase(self):
         self.insert_coins(2)
-        self.client.put("/inventory/0")
+        self.client.put("/inventory/1")
         response = self.client.put(
             "/", data={"coin": 1}, content_type="application/json"
         )
