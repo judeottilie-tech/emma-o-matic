@@ -37,7 +37,9 @@ async function buy(id) {
     document.getElementById(`stock-${id}`).textContent = remaining;
     coinsDisplay.textContent = 0;
     message.textContent = `Enjoy drink ${id}! ${coins} coin(s) returned.`;
-    dispensed.className = `can can-${id}`;
+    const can = document.createElement("div");
+    can.className = `can can-${id}`;
+    dispensed.appendChild(can);
   } else if (response.status === 403) {
     message.textContent = `Not enough coins. Insert 2 quarters.`;
   } else if (response.status === 404) {

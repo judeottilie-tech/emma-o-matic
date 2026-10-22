@@ -1,20 +1,12 @@
 :root {
-  --page: #f2f2f2;
-  --machine: #ffffff;
-  --window: #c9dbfb;
-  --label: #ffd84d;
-  --button: #ff6464;
-  --coin: #b0b0b0;
-  --drink-1: #ff6464;
-  --drink-2: #a8eec8;
-  --drink-3: #6aa0f0;
-  --text: #1a1a1a;
+  --bg: #ffffff;
+  --text: #000000;
 }
 
 body {
   margin: 0;
   padding: 16px;
-  background: var(--page);
+  background: var(--bg);
   color: var(--text);
   font-family: system-ui, sans-serif;
   display: flex;
@@ -26,8 +18,7 @@ body {
 
 .machine {
   width: min(100%, 440px);
-  background: var(--machine);
-  border: 2px solid #ccc;
+  border: 2px solid var(--text);
   padding: 24px;
   display: grid;
   gap: 16px;
@@ -39,11 +30,11 @@ h1 {
 }
 
 .window {
-  background: var(--window);
+  border: 1px solid var(--text);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  padding: 24px 12px;
+  padding: 16px 12px;
 }
 .drink {
   display: flex;
@@ -55,33 +46,38 @@ h1 {
   margin: 0;
 }
 .label {
-  background: var(--label);
-  padding: 2px 16px;
+  border: 1px solid var(--text);
+  padding: 2px 12px;
   font-weight: bold;
 }
 
 .can {
-  width: 56px;
-  height: 96px;
+  width: 40px;
+  height: 64px;
+  border: 2px solid var(--text);
 }
 .can-1 {
-  background: var(--drink-1);
+  background: #e0e0e0;
 }
 .can-2 {
-  background: var(--drink-2);
+  background: #909090;
 }
 .can-3 {
-  background: var(--drink-3);
+  background: #404040;
 }
 
 button {
   font: inherit;
   padding: 8px 16px;
   border: 2px solid var(--text);
-  border-radius: 999px;
-  background: var(--button);
+  border-radius: 4px;
+  background: var(--bg);
   color: var(--text);
   cursor: pointer;
+}
+button:hover {
+  background: var(--text);
+  color: var(--bg);
 }
 button:focus-visible {
   outline: 3px solid var(--text);
@@ -89,8 +85,7 @@ button:focus-visible {
 }
 
 .display {
-  background: #1d2b1d;
-  color: #b6f5b6;
+  border: 2px solid var(--text);
   font-family: monospace;
   padding: 12px;
 }
@@ -103,25 +98,18 @@ button:focus-visible {
   justify-content: flex-end;
   gap: 12px;
 }
-#return-coins {
-  background: var(--coin);
-  border-radius: 4px;
-}
 
-.tray {
-  background: var(--window);
-  height: 120px;
-  width: 45%;
+#dispensed {
+  width: 160px;
+  height: 160px;
+  padding: 8px;
+  border: 2px solid var(--text);
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-start;
+  gap: 4px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  #dispensed.can {
-    animation: drop 0.4s ease-out;
-  }
-  @keyframes drop {
-    from {
-      transform: translateY(-24px);
-      opacity: 0;
-    }
-  }
+#dispensed .can {
+  width: 24px;
+  height: 40px;
 }
