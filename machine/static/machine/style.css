@@ -1,0 +1,127 @@
+:root {
+  --page: #f2f2f2;
+  --machine: #ffffff;
+  --window: #c9dbfb;
+  --label: #ffd84d;
+  --button: #ff6464;
+  --coin: #b0b0b0;
+  --drink-1: #ff6464;
+  --drink-2: #a8eec8;
+  --drink-3: #6aa0f0;
+  --text: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--page);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.machine {
+  width: min(100%, 440px);
+  background: var(--machine);
+  border: 2px solid #ccc;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.window {
+  background: var(--window);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 24px 12px;
+}
+.drink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.drink p {
+  margin: 0;
+}
+.label {
+  background: var(--label);
+  padding: 2px 16px;
+  font-weight: bold;
+}
+
+.can {
+  width: 56px;
+  height: 96px;
+}
+.can-1 {
+  background: var(--drink-1);
+}
+.can-2 {
+  background: var(--drink-2);
+}
+.can-3 {
+  background: var(--drink-3);
+}
+
+button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 2px solid var(--text);
+  border-radius: 999px;
+  background: var(--button);
+  color: var(--text);
+  cursor: pointer;
+}
+button:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+
+.display {
+  background: #1d2b1d;
+  color: #b6f5b6;
+  font-family: monospace;
+  padding: 12px;
+}
+.display p {
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+#return-coins {
+  background: var(--coin);
+  border-radius: 4px;
+}
+
+.tray {
+  background: var(--window);
+  height: 120px;
+  width: 45%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #dispensed.can {
+    animation: drop 0.4s ease-out;
+  }
+  @keyframes drop {
+    from {
+      transform: translateY(-24px);
+      opacity: 0;
+    }
+  }
+}

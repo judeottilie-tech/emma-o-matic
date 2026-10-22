@@ -1,9 +1,11 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vend-O-Matic</title>
+    <link rel="stylesheet" href="{% static 'machine/style.css' %}" />
   </head>
   <body>
     <main class="machine">
@@ -44,5 +46,7 @@
     </main>
 
     <div id="dispensed" aria-hidden="true"></div>
+
+    <script src="{% static 'machine/script.js' %}"></script>
   </body>
 </html>
