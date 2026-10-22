@@ -1,1 +1,2 @@
-# emma-o-matic
+# Vend-O-Matic
+

@@ -84,7 +84,7 @@ class MachineTests(SimpleTestCase):
         response = self.client.get("/inventory/0")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), 5)
-        
+
     def test_invalid_id(self):
         self.insert_coins(1)
         response = self.client.put("/inventory/7")
@@ -95,3 +95,22 @@ class MachineTests(SimpleTestCase):
         client = Client(enforce_csrf_checks=True)
         response = client.post("/")
         self.assertEqual(response.status_code, 405)
+
+    def test_buy_until_sold_out(self):
+        for _ in range(5):
+            self.insert_coins(2)
+            self.client.put("/inventory/0")
+        self.insert_coins(2)
+        response = self.client.put("/inventory/0")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response["X-Coins"], "2")
+        self.assertEqual(views.inventory, [0, 5, 5])
+
+    def test_coins_reset_after_purchase(self):
+        self.insert_coins(2)
+        self.client.put("/inventory/0")
+        response = self.client.put(
+            "/", data={"coin": 1}, content_type="application/json"
+        )
+        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response["X-Coins"], "1")
