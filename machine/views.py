@@ -4,9 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 coins = 0
 inventory = [5, 5, 5]
+PRICE = 2
 
 
 def inventory_list(request):
+    if request.method != "GET":
+        return HttpResponse(status=405)
     return JsonResponse(inventory, safe=False)
 
 
@@ -14,7 +17,9 @@ def inventory_list(request):
 def inventory_item(request, item_id):
     global coins
     if item_id >= len(inventory):
-        return HttpResponse(status=404)
+        response = HttpResponse(status=404)
+        response["X-Coins"] = str(coins)
+        return response
 
     if request.method == "GET":
         return JsonResponse(inventory[item_id], safe=False)
@@ -25,12 +30,12 @@ def inventory_item(request, item_id):
             response["X-Coins"] = str(coins)
             return response
 
-        if coins < 2:
+        if coins < PRICE:
             response = HttpResponse(status=403)
             response["X-Coins"] = str(coins)
             return response
 
-        change = coins - 2
+        change = coins - PRICE
         coins = 0
         inventory[item_id] -= 1
         response = JsonResponse({"quantity": 1})
@@ -39,7 +44,6 @@ def inventory_item(request, item_id):
         return response
 
     return HttpResponse(status=405)
-
 
 
 @csrf_exempt
