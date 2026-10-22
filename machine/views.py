@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -64,3 +65,7 @@ def handle_coins(request):
         response["X-Coins"] = str(returned)
         return response
     return HttpResponse(status=405)
+
+
+def machine_page(request):
+    return render(request, "machine/index.html")
