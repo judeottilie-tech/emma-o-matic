@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.http import JsonResponse
 
-# Create your views here.
+coins = 0
+inventory = [5, 5, 5]
+
+
+def inventory_list(request):
+    return JsonResponse(inventory, safe=False)
