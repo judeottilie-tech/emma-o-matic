@@ -7,6 +7,7 @@ inventory = [5, 5, 5]
 PRICE = 2
 
 
+@csrf_exempt
 def inventory_list(request):
     if request.method != "GET":
         return HttpResponse(status=405)
