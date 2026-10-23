@@ -45,7 +45,9 @@ async function buy(id) {
     can.className = `can can-${id}`;
     dispensed.appendChild(can);
   } else if (response.status === 403) {
-    message.textContent = `Not enough coins. Insert 2 quarters.`;
+    const needed = 2 - Number(coins);
+    const word = needed === 1 ? "quarter" : "quarters";
+    message.textContent = `Not enough coins. Insert ${needed} more ${word}.`;
   } else if (response.status === 404) {
     message.textContent = `Drink ${id} is sold out.`;
   }
