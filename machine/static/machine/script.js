@@ -2,6 +2,10 @@ const coinsDisplay = document.getElementById("coins");
 const message = document.getElementById("message");
 const dispensed = document.getElementById("dispensed");
 
+function coinWord(count) {
+  return Number(count) === 1 ? "coin" : "coins";
+}
+
 async function loadStock() {
   const response = await fetch("/inventory");
   const stock = await response.json();
@@ -25,7 +29,7 @@ async function returnCoins() {
   const response = await fetch("/", { method: "DELETE" });
   const returned = response.headers.get("X-Coins");
   coinsDisplay.textContent = 0;
-  message.textContent = `${returned} coin(s) returned.`;
+  message.textContent = `${returned} ${coinWord(returned)} returned.`;
 }
 
 async function buy(id) {
@@ -36,7 +40,7 @@ async function buy(id) {
     const remaining = response.headers.get("X-Inventory-Remaining");
     document.getElementById(`stock-${id}`).textContent = remaining;
     coinsDisplay.textContent = 0;
-    message.textContent = `Enjoy drink ${id}! ${coins} coin(s) returned.`;
+    message.textContent = `Enjoy drink ${id}! ${coins} ${coinWord(coins)} returned.`;
     const can = document.createElement("div");
     can.className = `can can-${id}`;
     dispensed.appendChild(can);

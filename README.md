@@ -17,7 +17,8 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-Developed on Windows with Git Bash. On Windows, activate with `source venv/Scripts/activate`.
+Developed on Windows with Git Bash. On Windows, activate with `source venv/Scripts/activate` (line 4 above)
+
 
 ## Run the server
 
