@@ -3,5 +3,3 @@ __pycache__/
 *.pyc
 db.sqlite3
 .vscode/
-CLAUDE.md
-.claude/
