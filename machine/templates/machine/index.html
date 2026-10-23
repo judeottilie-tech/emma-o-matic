@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vend-O-Matic</title>
+    <link rel="stylesheet" href="{% static 'machine/style.css' %}" />
+  </head>
+  <body>
+    <main class="machine">
+      <h1>Vend-O-Matic</h1>
+
+      <section class="window" aria-label="Drinks">
+        <div class="drink">
+          <div class="can can-1"></div>
+          <p class="label">1</p>
+          <p><span id="stock-1">5</span> left</p>
+          <button id="buy-1">Buy drink 1</button>
+        </div>
+        <div class="drink">
+          <div class="can can-2"></div>
+          <p class="label">2</p>
+          <p><span id="stock-2">5</span> left</p>
+          <button id="buy-2">Buy drink 2</button>
+        </div>
+        <div class="drink">
+          <div class="can can-3"></div>
+          <p class="label">3</p>
+          <p><span id="stock-3">5</span> left</p>
+          <button id="buy-3">Buy drink 3</button>
+        </div>
+      </section>
+
+      <section class="display" aria-label="Display">
+        <p>Coins: <span id="coins">{{ coins }}</span></p>
+        <p id="message" aria-live="polite">Insert 2 quarters</p>
+      </section>
+
+      <div class="controls">
+        <button id="insert-coin">Insert quarter</button>
+        <button id="return-coins">Return coins</button>
+      </div>
+    </main>
+
+    <div id="dispensed" aria-hidden="true"></div>
+
+    <script src="{% static 'machine/script.js' %}"></script>
+  </body>
+</html>

@@ -110,6 +110,15 @@ class MachineTests(SimpleTestCase):
         self.assertEqual(response["X-Coins"], "2")
         self.assertEqual(views.inventory, [0, 5, 5])
 
+    def test_machine_page(self):
+        response = self.client.get("/machine")
+        self.assertEqual(response.status_code, 200)
+
+    def test_machine_page_shows_coins(self):
+        self.insert_coins(2)
+        response = self.client.get("/machine")
+        self.assertContains(response, '<span id="coins">2</span>')
+
     def test_coins_reset_after_purchase(self):
         self.insert_coins(2)
         self.client.put("/inventory/1")

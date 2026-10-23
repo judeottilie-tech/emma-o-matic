@@ -1,0 +1,115 @@
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.machine {
+  width: min(100%, 440px);
+  border: 2px solid var(--text);
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.window {
+  border: 1px solid var(--text);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px 12px;
+}
+.drink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.drink p {
+  margin: 0;
+}
+.label {
+  border: 1px solid var(--text);
+  padding: 2px 12px;
+  font-weight: bold;
+}
+
+.can {
+  width: 40px;
+  height: 64px;
+  border: 2px solid var(--text);
+}
+.can-1 {
+  background: #e0e0e0;
+}
+.can-2 {
+  background: #909090;
+}
+.can-3 {
+  background: #404040;
+}
+
+button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 2px solid var(--text);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+button:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+button:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+
+.display {
+  border: 2px solid var(--text);
+  font-family: monospace;
+  padding: 12px;
+}
+.display p {
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+#dispensed {
+  width: 160px;
+  height: 160px;
+  padding: 8px;
+  border: 2px solid var(--text);
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-start;
+  gap: 4px;
+}
+#dispensed .can {
+  width: 24px;
+  height: 40px;
+}
