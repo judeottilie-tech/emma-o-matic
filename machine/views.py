@@ -68,4 +68,4 @@ def handle_coins(request):
 
 
 def machine_page(request):
-    return render(request, "machine/index.html")
+    return render(request, "machine/index.html", {"coins": coins})

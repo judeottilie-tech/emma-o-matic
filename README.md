@@ -57,7 +57,18 @@ curl -i -X DELETE localhost:8000/
 
 `-i` shows the response headers (X-Coins, X-Inventory-Remaining).
 
+## Try it in the browser
+
+While the server is running, open http://localhost:8000/machine
+
+The buttons call the same API as the curl commands above, so you can see visually what each request does.
+
+
 ## Notes on design choices
-Id's are 1-based, I feel it works better for real world application. In Python, lists will accept a negative index. I made sure to test for item_id < 1 to check for this potential bug.
-Stock is checked before coins.
-Resets on restart, state is in memory. If server is restarted, memory restarts.
+- Ids are 1-based, I feel it works better for real world application. In Python, lists will accept a negative index, so id 0 would turn into index -1 and sell drink 3. I made sure to test for item_id < 1 to check for this potential bug.
+- Stock is checked before coins.
+- Resets on restart, state is in memory. If server is restarted, the memory will restart. 
+- I wanted to do a very basic front end to visually show what was happening in the app. It can be seen through the tests, but I personally like to be able to see an actual image of what is happening.
+- The coin count on the page comes from the server when it loads, so it stays correct after a refresh.
+
+![Vend-O-Matic page in the browser](docs/screenshot.png)
